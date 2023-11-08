@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkuler pris på solcellepaneler</title>
+    <meta name="description" content="Kalkuler pris per panel - alfaelektrosol.no">"
+    
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            display: flex;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            
+        }
+        .calculator {
+            flex: 1;
+            background-color: #f9f9f9;
+            padding: 20px;
+            border: 6px solid #0073e6;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .roof-type-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        .roof-type-button {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        .roof-type-radio {
+            display: none;
+        }
+        .roof-type-label {
+            width: 15px;
+            height: 15px;
+            border: 1px solid #FF8500;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s;
+        }
+        .roof-type-radio:checked + .roof-type-label {
+            background-color: #FF8500;
+            color: #fff;
+        }
+        h1, h2 {
+            color: #050505;
+            font-size: 20px;
+        }
+        input[type="range"] {
+            width: 100%;
+            margin: 10px 0;
+            background: linear-gradient(to right, #FF8500, #FF8500) no-repeat;
+            background-size: var(--value, 0%) 100%;
+            border: none;
+            outline: orange;
+            height: 12px;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            background: #FF8500;
+            border: 1px solid #FF8500;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        p.text-sm {
+            font-size: 14px;
+            color: #777;
+        }
+        .contact-form {
+            flex: 1;
+            background-color: #fff; 
+            padding: 20px;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .contact-form h2 {
+            color: #333;
+        }
+        .contact-form form {
+            display: flex;
+            flex-direction: column;
+        }
+        .contact-form label {
+            font-weight: bold;
+            margin-top: 15px;
+        }
+        .contact-form input, .contact-form textarea {
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .contact-form button {
+            background-color: #FF8500; 
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 20px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .big-button {
+            font-size: 20px;
+            padding: auto;
+        }
+        
+        
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            margin-top: 15px;
+            
+        }
+
+        input[type="checkbox"] {
+            width: 24px; 
+            height: 24px; 
+            margin-right: 5px;
+            margin-top: 10px;
+                
+        }
+
+        .checkbox-label {
+            font-size: 17px;
+            color: #333;
+            margin-top: 10px;
+            
+        }
+         .thank-you-content {
+            text-align:center ;
+            border-radius: 4px;
+            padding: 40px;
+            margin-top:120px;
+            display: none;
+        }
+
+        .thank-you-content h2 {
+            font-size: 3rem; /* Increase font size */
+            margin: 0; /* Remove default margin */
+        }
+        .thank-you-content .back-button {
+            display: inline-block;
+            text-align: center;
+            text-decoration: none;
+            background-color: #FF8500;
+            color: #fff;
+            padding: 20px 30px;
+            margin-top: 60px;
+            border: 2px solid transparent;
+            border-radius: 8px;
+            transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+            font-size: 20px;
+        }
+
+        .thank-you-content .back-button:hover {
+            transform: translateY(-5px);
+            background-color: transparent;
+            color: #FF8500;
+            border: 2px solid #FF8500;
+        }
+        
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="calculator">
+            <h1 class="font-bold text-xl" id="roofType-header">VELG TAK</h1>
+            <div class="roof-type-buttons">
+                <label class="roof-type-button" onclick="selectRoof('Takstein')">
+                    <input type="radio" name="roofType" class="roof-type-radio" value="Takstein">
+                    <span class="roof-type-label"></span> Takstein
+                </label>
+                <label class="roof-type-button" onclick="selectRoof('Decra')">
+                    <input type="radio" name="roofType" class="roof-type-radio" value="Decra">
+                    <span class="roof-type-label"></span> Decra/powertekk
+                </label>
+                 <label class="roof-type-button" onclick="selectRoof('Flate')">
+                    <input type="radio" name="roofType" class="roof-type-radio" value="Flate">
+                    <span class="roof-type-label"></span> Flate tak
+                </label>
+            </div>
+            <div class="hidden" id="calculatorContainer">
+                <div class="mt-5">
+                    <h2 class="font-bold text-xl">ANTALL PANELER</h2>
+                    <input class="w-full" type="range" id="rangeInput" value="8" min="8" max="50" oninput="updateCalculations(this.value);">
+                    <div class="flex">
+                        <p class="text-4xl font-thin" id="numPanels">8 STK</p>
+                        <p class="text-sm">Ett panel er ca 1,75m høyt og 1,1m bredt.</p>
+                    </div>
+                </div>
+                <div class="mt-5">
+                    <h2 class="font-bold text-xl">INSTALLERT EFFEKT</h2>
+                    <div class="flex">
+                        <p class="text-4xl font-thin" id="production">3280 Wp</p>
+                        <p class="text-sm">Vi bruker 410Wp standard paneler i utregningen.</p>
+                    </div>
+                </div>
+                <div class="mt-5">
+                    <h2 class="font-bold text-xl">PRIS FØR ENOVA STØTTE</h2>
+                    <div class="flex">
+                        <p class="text-4xl font-thin" id="price">85000 Kr</p>
+                    </div>
+                </div>
+                <div class="mt-5">
+                    <h2 class="font-bold text-xl">BEREGNET ENOVA STØTTE</h2>
+                    <div class="flex">
+                        <p class="text-4xl font-thin" id="enova">11600 Kr</p>
+                        <p class="text-sm">Enova gir 7.500kr pluss 1.250 kr pr. kw opptil 20kw. Maks støtte er 32.500kr.</p>
+                    </div>
+                </div>
+                <div class="mt-5">
+                    <h2 class="font-bold text-xl">TOTAL PRIS INK.MVA</h2>
+                    <div class="flex">
+                        <p class="text-4xl font-bold text-cyan-600" id="finalPrice">73400 Kr</p>
+                    </div>
+                    <p class="text-sm">Dette er en beregning. Få en gratis prisvurdering fra oss for å finne ut hvor mye du kan spare hvert år, og hvor mye du kan tjene tilbake på investeringen din ved å be om en uforpliktende prisvurdering!</p>
+                </div>
+            </div>
+        </div>
+        <div class="contact-form">
+            <h2>Kontaktskjema</h2>
+            <form action="https://formsubmit.co/asbjorn.roed@alfael.no" method="POST" >
+                <!--Honeypot-->
+                <input type="text" name="_honey" style="display:none">
+                <label for="name">Fornavn</label>
+                <input type="text" id="name" name="name" required>
+                <label for="lastname">Etternavn</label>
+                <input type="text" id="lastname" name="lastname" required>
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+                <label for="phone">Telefon</label>
+                <input type="text" id="phone" name="phone" required>
+                <label for="address">Adresse</label>
+                <input type="text" id="address" name="address" required>
+                <label for="zipcode">Postnummer</label>
+                <input type="text" id="zipcode" name="zipcode" required>
+                <label for="city">Sted</label>
+                <input type="text" id="city" name="city" required>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="commentCheckbox" name="commentCheckbox">
+                    <span class="checkbox-label"> Vil du ha en gratis befaring? </span>
+                </div>
+                <label for="message">Kommentar</label>
+                <textarea id="message" name="message" rows="6"></textarea>
+                <button type="submit" class="big-button">Send</button>
+            </form>
+        </div>
+    </div>
+    <div class="thank-you-content">
+        <h2>Takk! Vi har mottatt din henvendelse 😊</h2>
+        <a href="https://www.alfaelektrosol.no/" class="back-button">Til forsiden</a>
+</div>
+    </div>
+        
+
+    
+   <script>
+    let selectedRoof = 'Takstein'; 
+    let numPanels = 8;
+    let panelPrice = 8150; 
+
+    function updateCalculations(value) {
+        const numPanels = parseInt(value);
+        document.getElementById("numPanels").textContent = numPanels + " STK";
+        const production = calculateProduction(selectedRoof, numPanels);
+        document.getElementById("production").textContent = production + " Wp";
+        const price = calculatePrice(selectedRoof, numPanels);
+        document.getElementById("price").textContent = price + " Kr";
+        const enova = calculateEnovaSupport(selectedRoof, production);
+        document.getElementById("enova").textContent = enova + " Kr";
+        const finalPrice = (price - enova);
+        document.getElementById("finalPrice").textContent = finalPrice + " Kr";
+    }
+
+    function calculateProduction(roofType, numPanels) {
+        if (roofType === 'Takstein') {
+            return numPanels * 410; 
+        } else if (roofType === 'Decra') {
+            return numPanels * 410; 
+        } else if (roofType === "Flate") {
+            return numPanels * 410;
+        }
+    }
+
+    function calculateEnovaSupport(roofType, production) {
+        let enova = 0;
+
+        if (roofType === 'Takstein') {
+            enova = 7500 + (1250 * (production / 1000)); 
+        } else if (roofType === 'Decra') {
+            enova = 7500 + (1250 * (production / 1000)); 
+        } else if (roofType === "Flate") {
+            enova = 7500 + (1250 * (production / 1000));
+            enova = Math.min(enova, 32500);
+        }
+        return enova;
+    }
+
+    function calculatePrice(roofType, numPanels) {
+        let panelPrice;
+        if (roofType === 'Takstein') {
+            panelPrice = 85000; 
+            if (numPanels > 8) {
+                panelPrice += (numPanels - 8) * 8150; 
+            }
+        } else if (roofType === 'Decra') {
+            panelPrice = 75000; 
+            if (numPanels > 8) {
+                panelPrice += (numPanels - 8) * 7115; 
+            }
+        } else if (roofType === "Flate") {
+            panelPrice = 85000;
+            if (numPanels > 8) {
+                panelPrice += (numPanels - 8) * 7400;
+            }
+        }
+        return panelPrice;
+    }
+
+    function selectRoof(roofType) {
+        selectedRoof = roofType;
+        document.getElementById("calculatorContainer").classList.remove("hidden");
+        updateCalculations(document.getElementById("rangeInput").value);
+    }
+ // JavaScript to show the thank-you page after successful form submission
+       
+      document.addEventListener('DOMContentLoaded', function () {
+    // Your JavaScript code here
+    const form = document.querySelector('form');
+    const thankYouContent = document.querySelector('.thank-you-content');
+    const roofTypeButtons = document.querySelector('.roof-type-buttons');
+    const calculatorContainer = document.getElementById('calculatorContainer');
+    const roofTypeHeader = document.getElementById('roofType-header');
+    const calculator = document.querySelector('.calculator');
+    
+    form.addEventListener('submit', function (event) {
+        event.preventDefault(); // Prevent the form from submitting
+        // You can add form validation logic here if needed
+        setTimeout(function () {
+            // Assuming the form is valid, hide the form and display the thank-you page
+            document.querySelector('.contact-form').style.display = 'none';
+            thankYouContent.style.display = 'block';
+            calculatorContainer.style.display = 'none';
+            roofTypeButtons.style.display = 'none';
+            roofTypeHeader.style.display = 'none';
+
+            calculator.style.display = "none";
+        }, 0);
+    });
+});
+
+   
+    
+</script>
+
+</body>
+</html>
