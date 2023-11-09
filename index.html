@@ -4,10 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kalkuler pris på solcellepaneler</title>
-    <meta name="description" content="Kalkuler pris per panel - alfaelektrosol.no">"
-    
+    <meta name="description" content="Kalkuler pris per panel - alfaelektrosol.no">
+  
     <style>
-
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -171,8 +170,16 @@
             color: #FF8500;
             border: 2px solid #FF8500;
         }
-        
 
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .calculator, .contact-form {
+                width: 100%;
+            }
+        }
     </style>
 </head>
 <body>
