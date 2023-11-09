@@ -352,27 +352,27 @@
     }
  // JavaScript to show the thank-you page after successful form submission
        
-      document.addEventListener('DOMContentLoaded', function () {
-    // Your JavaScript code here
+  document.addEventListener('DOMContentLoaded', function () {
     const form = document.querySelector('form');
     const thankYouContent = document.querySelector('.thank-you-content');
     const roofTypeButtons = document.querySelector('.roof-type-buttons');
     const calculatorContainer = document.getElementById('calculatorContainer');
     const roofTypeHeader = document.getElementById('roofType-header');
     const calculator = document.querySelector('.calculator');
-    
+
     form.addEventListener('submit', function (event) {
-        event.preventDefault(); // Prevent the form from submitting
-        // You can add form validation logic here if needed
+        event.preventDefault();
+
         setTimeout(function () {
-            // Assuming the form is valid, hide the form and display the thank-you page
             document.querySelector('.contact-form').style.display = 'none';
             thankYouContent.style.display = 'block';
             calculatorContainer.style.display = 'none';
             roofTypeButtons.style.display = 'none';
             roofTypeHeader.style.display = 'none';
-
             calculator.style.display = "none";
+
+            // Scroll to the thank you message
+            thankYouContent.scrollIntoView({ behavior: 'smooth' });
         }, 0);
     });
 });
