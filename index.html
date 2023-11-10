@@ -147,8 +147,8 @@
         }
 
         .thank-you-content h2 {
-            font-size: 3rem; /* Increase font size */
-            margin: 0; /* Remove default margin */
+            font-size: 3rem; 
+            margin: 0; 
         }
         .thank-you-content .back-button {
             display: inline-block;
@@ -350,7 +350,7 @@
         document.getElementById("calculatorContainer").classList.remove("hidden");
         updateCalculations(document.getElementById("rangeInput").value);
     }
- // JavaScript to show the thank-you page after successful form submission
+ // JavaScript for Takkemelding
        
   document.addEventListener('DOMContentLoaded', function () {
     const form = document.querySelector('form');
@@ -371,7 +371,7 @@
             roofTypeHeader.style.display = 'none';
             calculator.style.display = "none";
 
-            // Scroll to the thank you message
+            
             thankYouContent.scrollIntoView({ behavior: 'smooth' });
         }, 0);
     });
