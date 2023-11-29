@@ -250,6 +250,7 @@
             <form action="https://formsubmit.co/asbjorn.roed@alfael.no" method="POST"data-success="https://alfaelektrosol.no/" >
                 <!--Honeypot-->
                 <input type="text" name="_honey" style="display:none">
+                <input type="hidden" id="selectedRoof" name="selectedRoof" value="Takstein">
                 <label for="name">Fornavn</label>
                 <input type="text" id="name" name="name" required>
                 <label for="lastname">Etternavn</label>
@@ -350,6 +351,7 @@
         document.getElementById("calculatorContainer").classList.remove("hidden");
         updateCalculations(document.getElementById("rangeInput").value);
     }
+       document.getElementById("selectedRoof").value = selectedRoof;
 
 </script>
 
