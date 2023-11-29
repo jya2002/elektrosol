@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kalkuler pris på solcellepaneler</title>
-    <meta name="description" content="Kalkuler pris per panel - alfaelektrosol.no">
-  
+    <meta name="description" content="Kalkuler pris per panel - alfaelektrosol.no">"
+    
     <style>
+
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -147,8 +148,8 @@
         }
 
         .thank-you-content h2 {
-            font-size: 3rem; 
-            margin: 0; 
+            font-size: 3rem; /* Increase font size */
+            margin: 0; /* Remove default margin */
         }
         .thank-you-content .back-button {
             display: inline-block;
@@ -170,22 +171,7 @@
             color: #FF8500;
             border: 2px solid #FF8500;
         }
-
-     @media (max-width: 768px) {
-    .container {
-        flex-direction: column;
-    }
-
-    .calculator, .contact-form {
-        width: 100%;
-    }
-
-    @media (max-width: 375px) {
-        .calculator, .contact-form {
-            width: 100%;
-        }
-    }
-}
+        
 
     </style>
 </head>
@@ -247,10 +233,10 @@
         </div>
         <div class="contact-form">
             <h2>Kontaktskjema</h2>
-            <form action="https://formsubmit.co/asbjorn.roed@alfael.no" method="POST"data-success="https://alfaelektrosol.no/" >
-                <!--Honeypot-->
+            <form action="https://formsubmit.co/asbjorn.roed@alfael.no" method="POST" onsubmit="handleFormSubmission();">
+    
+                <!--Honeypot-->    
                 <input type="text" name="_honey" style="display:none">
-                <input type="hidden" id="selectedRoof" name="selectedRoof" value="Takstein">
                 <label for="name">Fornavn</label>
                 <input type="text" id="name" name="name" required>
                 <label for="lastname">Etternavn</label>
@@ -277,12 +263,9 @@
     </div>
     <div class="thank-you-content">
         <h2>Takk! Vi har mottatt din henvendelse 😊</h2>
-        <a href="https://www.alfaelektrosol.no/" class="back-button" target="_top">Til forsiden</a>
+        <a href="https://www.alfaelektrosol.no/" class="back-button">Til forsiden</a>
 </div>
     </div>
-        
-
-    
    <script>
     let selectedRoof = 'Takstein'; 
     let numPanels = 8;
@@ -351,8 +334,15 @@
         document.getElementById("calculatorContainer").classList.remove("hidden");
         updateCalculations(document.getElementById("rangeInput").value);
     }
-       document.getElementById("selectedRoof").value = selectedRoof;
 
+    function handleFormSubmission() {
+    // Your form submission logic here
+
+    // Redirect to the desired URL
+    window.location.href = "https://www.alfaelektrosol.no/";
+}
+
+    
 </script>
 
 </body>
