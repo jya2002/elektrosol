@@ -350,32 +350,6 @@
         document.getElementById("calculatorContainer").classList.remove("hidden");
         updateCalculations(document.getElementById("rangeInput").value);
     }
- // JavaScript for Takkemelding
-       
-  document.addEventListener('DOMContentLoaded', function () {
-    const form = document.querySelector('form');
-    const thankYouContent = document.querySelector('.thank-you-content');
-    const roofTypeButtons = document.querySelector('.roof-type-buttons');
-    const calculatorContainer = document.getElementById('calculatorContainer');
-    const roofTypeHeader = document.getElementById('roofType-header');
-    const calculator = document.querySelector('.calculator');
-
-    form.addEventListener('submit', function (event) {
-        event.preventDefault();
-
-        setTimeout(function () {
-            document.querySelector('.contact-form').style.display = 'none';
-            thankYouContent.style.display = 'block';
-            calculatorContainer.style.display = 'none';
-            roofTypeButtons.style.display = 'none';
-            roofTypeHeader.style.display = 'none';
-            calculator.style.display = "none";
-
-            
-            thankYouContent.scrollIntoView({ behavior: 'smooth' });
-        }, 0);
-    });
-});
 
    
     
